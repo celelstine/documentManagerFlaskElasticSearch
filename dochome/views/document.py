@@ -104,38 +104,28 @@ def getDocuments():
                     "bool": {
                         "must": [
                             {
-                                "term": {
-                                    "doc_status": "active"
-                                }
+                                "term": { "doc_status": "active" }
                             },
                             {
                                 "bool": {
                                     "should": [
                                         {
-                                            "term": {
-                                                "accessRight": "public"
-                                            }
+                                            "term": { "accessRight": "public" }
                                         },
                                         {
                                             "bool": {
                                                 "must": [
                                                     {
-                                                        "term": {
-                                                            "accessRight.keyword": "Role"
-                                                        }
+                                                        "term": { "accessRight.keyword": "Role" }
                                                     },
                                                     {
-                                                        "term": {
-                                                            "accessGroup": user_role
-                                                        }
+                                                        "term": { "accessGroup": user_role }
                                                     }
                                                 ]
                                             }
                                         },
                                         {
-                                            "term": {
-                                                "owner": user_id
-                                            }
+                                            "term": { "owner": user_id }
                                         }
                                     ]
                                 }
@@ -441,22 +431,16 @@ def search(match_phrase=None):
                 "bool":{
                     "must": [
                         {
-                            "term": {
-                                "doc_status": "active"
-                            }
+                            "term": { "doc_status": "active" }
                         },
                         {
                             "bool": {
                                 "should": [
                                     {
-                                        "match_phrase": {
-                                            "title": phrase
-                                        }
+                                        "match_phrase": { "title": phrase }
                                     },
                                     {
-                                        "match_phrase": {
-                                            "body": phrase
-                                        }
+                                        "match_phrase": { "body": phrase }
                                     }
                                 ]
                             }
@@ -465,30 +449,22 @@ def search(match_phrase=None):
                             "bool": {
                                 "should": [
                                     {
-                                        "term": {
-                                            "accessRight": "public"
-                                        }
+                                        "term": { "accessRight": "public" }
                                     },
                                     {
                                         "bool": {
                                             "must": [
                                                 {
-                                                    "term": {
-                                                        "accessRight.keyword": "Role"
-                                                    }
+                                                    "term": { "accessRight.keyword": "Role"}
                                                 },
                                                 {
-                                                    "term": {
-                                                        "accessGroup": user_role
-                                                    }
+                                                    "term": { "accessGroup": user_role }
                                                 }
                                             ]
                                         }
                                     },
                                     {
-                                        "term": {
-                                            "owner": user_id
-                                        }
+                                        "term": { "owner": user_id }
                                     }
                                 ]
                             }
