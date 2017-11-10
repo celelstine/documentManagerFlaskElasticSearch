@@ -75,13 +75,39 @@ function install_dependencies() {
     echo 'Installing project dependencies' >> startScript.log
     pip install -r  ${requirement_file} >> startScript.log
 
-    if [ $? -ne 0 ]; then
+    if [ $? -ne 0 ]
+    then
         echo 'Unable to install project dependencies'
         echo 'Unable to install project dependencies' >> startScript.log
         exit 1
     fi
 }
 
+function check_elasticsearch() {
+    # Function to check is running
+    if [ ! `curl --output /dev/null --silent --head --fail http://localhost:9200` ]
+    then
+        echo 'Starting elastic search on a different window'
+        echo 'Starting elastic search on a different window' >> startScript.log
+
+        elasticsearch & >> startScript.log
+
+        if [ $? -ne 0 ]
+        then
+            package_name=elasticsearch
+            check_ES=`which $package_name`
+            if [ -z "${check_ES}" ]
+            then
+                echo "Elasticsearch isn't installed!"
+                echo "Elasticsearch isn't installed!" >> startScript.log
+                echo "Install Elasticsearch at https://www.elastic.co/"
+                exit 1
+            fi
+        fi
+    else
+        echo "came here"
+    fi
+}
 function run_flaskApp() {
     # function to export the flask app
     echo 'What is the name of your flask main file'
@@ -100,6 +126,13 @@ function run_flaskApp() {
             install_dependencies
 
             export FLASK_APP=${flask_app_path}
+
+            check_elasticsearch
+
+             if [ $? -ne 0 ]
+             then
+                echo "did not work"
+             fi
             python -m flask run
 
             if [ $? -ne 0 ]; then
@@ -125,7 +158,7 @@ function start() {
         echo 'Unable to excute the find command '
         echo 'Unable to excute the find command ' >> startScript.log
     else
-        if  [ -z "$envpath"] || [ ! -f ${envpath} ]
+        if  [ -z "${envpath}" ] || [ ! -f ${envpath} ]
         then
             echo "${envpath} is not a file"
             echo 'You do not not have a virtual environment, we need to create one.'
