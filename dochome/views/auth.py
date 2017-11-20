@@ -7,7 +7,7 @@ from dochome.utility import user_exist, encryt, toBytesString, toUnicode, compar
 from app import app
 
 
-@app.route('/login/', methods=['GET', 'POST'])
+@app.route('/api/login/', methods=['GET', 'POST'])
 def login():
     """
 	Route to login
@@ -46,7 +46,7 @@ def login():
     return {"message": "Use this route to login"}
 
 
-@app.route('/signup', methods=['GET', 'POST'])
+@app.route('/api/signup', methods=['GET', 'POST'])
 def signup():
     """
 	Route to signup
