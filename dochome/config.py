@@ -10,8 +10,11 @@ from elasticsearch import Elasticsearch
 elasticsearch = Elasticsearch()
 
 # list of unprotected routes
-unprotectedRoutes =[
-  '/login/',
-  '/signup/'
+protectedRoutes =[
+  '/documents/',
+  '/documents',
+  '/document/<document_id>',
+  '/search',
+  '/search/<match_phrase>',
 ]
 
