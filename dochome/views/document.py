@@ -2,7 +2,7 @@ from flask_api import status
 from flask import request
 from datetime import datetime
 
-from dochome.config import ES, elasticsearch, unprotectedRoutes
+from dochome.config import ES, elasticsearch, protectedRoutes
 from dochome.utility import user_exist, encryt, toBytesString, toUnicode,comparePassword, createJWt, islogin, decodeJWT
 from app import app
 
@@ -11,11 +11,11 @@ from app import app
 def before_request():
     """
     A middleware for every route, it checks for jwt for protected routes
-    :returns: (json) jwy payload
+    :returns: (json) jwt payload
     """
     rule = request.url_rule
     try:
-        if rule.rule not in unprotectedRoutes:
+        if rule.rule in protectedRoutes:
             token = request.headers.get('Authorization', None)
 
             try:

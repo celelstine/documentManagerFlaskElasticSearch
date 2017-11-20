@@ -23,11 +23,12 @@ def user_exist(email):
                     ]
                 }
             }
-        }
+        },
+        ignore=[404]
     )
+
     hits = es_result.get('hits')
-    print(hits.get('total'))
-    if hits.get('total') == 0:
+    if hits is None or hits.get('total') == 0:
         return False
     else:
         return hits.get('hits')
