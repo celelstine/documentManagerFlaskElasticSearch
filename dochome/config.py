@@ -11,10 +11,10 @@ elasticsearch = Elasticsearch()
 
 # list of unprotected routes
 protectedRoutes =[
-  '/documents/',
-  '/documents',
-  '/document/<document_id>',
-  '/search',
-  '/search/<match_phrase>',
+  '/api/documents/',
+  '/api/documents',
+  '/api/document/<document_id>',
+  '/api/search',
+  '/api/search/<match_phrase>',
 ]
 

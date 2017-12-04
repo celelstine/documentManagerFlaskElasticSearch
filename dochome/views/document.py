@@ -26,8 +26,8 @@ def before_request():
     except:
         return { "message": "we do not support the route or method, please review the endpoint"}, status.HTTP_400_BAD_REQUEST
 
-@app.route('/documents/', methods=['GET', "POST"])
-@app.route('/documents', methods=['GET', "POST"])
+@app.route('/api/documents/', methods=['GET', "POST"])
+@app.route('/api/documents', methods=['GET', "POST"])
 def getDocuments():
     """
     Route to get all at least 10 documents or created a name documents
@@ -125,7 +125,7 @@ def getDocuments():
                                             }
                                         },
                                         {
-                                            "term": { "owner": user_id }
+                                            "term": { "owner.keyword": user_id }
                                         }
                                     ]
                                 }
@@ -162,7 +162,7 @@ def getDocuments():
             accessGroup = None
 
             if accessRight not in ['Role', 'Public', 'Private']:
-                return { "message": "Invalid access rigth, choose one from thes options [ 'Role', 'Public', 'Private']"}, status.HTTP_400_BAD_REQUEST
+                return { "message": "Invalid access right, choose one from thes options [ 'Role', 'Public', 'Private']"}, status.HTTP_400_BAD_REQUEST
             if accessRight in ['role', 'Role']:
                 accessGroup = user_role
 
@@ -195,7 +195,7 @@ def getDocuments():
     return { "message": "God is merciful"}
 
 
-@app.route('/document/<document_id>', methods = ["GET", "PUT", "DELETE" ])
+@app.route('/api/document/<document_id>', methods = ["GET", "PUT", "DELETE" ])
 def document(document_id):
     """
     Route to get, update or delete an document
@@ -347,8 +347,8 @@ def document(document_id):
         return { "message": "An error occurred, please try again . Send us a mail if this error persist (okorocelestine@gmail.com)"}, status.HTTP_500_INTERNAL_SERVER_ERROR
 
 
-@app.route('/search', methods=['GET'])
-@app.route('/search/<match_phrase>', methods=['GET'])
+@app.route('/api/search/', methods=['GET'])
+@app.route('/api/search/<match_phrase>', methods=['GET'])
 def search(match_phrase=None):
     """
     Route to search for documents that contains the phrase passed in it's body or title
