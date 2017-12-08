@@ -8,7 +8,7 @@ from dochome.utility import user_exist, encryt, toBytesString, toUnicode,compare
 
 
 app = FlaskAPI(__name__, static_folder = "./dist/static", template_folder = "./dist")
-cors = CORS(app, resources={r"/*": {"origins": "*"}})
+cors = CORS(app, resources={r"/api/*": {"origins": "*"}})
 
 from dochome.views import * 
 

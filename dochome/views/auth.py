@@ -25,7 +25,7 @@ def login():
             try:
                 es_result = user_exist(email)
                 if es_result == False:
-                    return "Wrong email or Password"
+                    return {"message": "Wrong email or Password"}, status.HTTP_400_BAD_REQUEST
                 record = es_result[0].get('_source')
                 source_password = record.get('password')
                 if comparePassword(password, source_password):
@@ -82,7 +82,7 @@ def signup():
                 )
                 if es_result.get('result') == 'created':
                     payload = {
-                        "id": es_result.get('id'),
+                        "id": es_result.get('_id'),
                         "role": 1
                     }
                     response = {
